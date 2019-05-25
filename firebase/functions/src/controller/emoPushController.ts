@@ -8,8 +8,8 @@ export class EmoController {
             res.sendStatus(400);
             return;
         }
-        if (await this.existEmoPushs(req.body.user_id, req.body.omoiro_id)) {
-            res.sendStatus(400);
+        if (await this.deleteEmoPushs(req.body.user_id, req.body.omoiro_id)) {
+            res.json({ ok: "ok delete" })
             return;
         }
         db.ref("/emo_pushs").push({ "user_id": req.body.user_id, "omoiro_id": req.body.omoiro_id });
@@ -23,14 +23,14 @@ export class EmoController {
         });
     }
 
-    private existEmoPushs(user_id: number, omoiro_id: number) {
-        return new Promise((resolve, reject) =>
-            db.ref("/emo_pushs").on("value", (snapshot) => {
-                if (snapshot) {
-                    const flag = objectToArray(snapshot.val())
-                        .some(x => x.omoiro_id == omoiro_id && x.user_id == user_id);
-                    resolve(flag);
-                }
-            }));
+    private async deleteEmoPushs(user_id: number, omoiro_id: number) {
+
+        const emo_push = objectToArray((await db.ref("/emo_pushs").once("value")).val())
+            .find(x => x.omoiro_id == omoiro_id && x.user_id == user_id);
+        if (emo_push) {
+            db.ref(`/emo_pushs/${emo_push.id}`).set(null);
+            return true;
+        }
+        return false;
     }
 }

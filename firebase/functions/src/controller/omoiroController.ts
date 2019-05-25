@@ -18,32 +18,35 @@ export class OmoiroController {
     }
 
     create(req: Request, res: Response) {
-        if (!(req.body.user_id && req.body.text && req.body.image_urls && req.body.color)) {
+        if (!(
+            req.body.user_id && req.body.text &&
+            req.body.image_urls && req.body.color &&
+            req.body.color.code && req.body.color.name && req.body.color.furigana
+        )) {
             res.json({ error: "validate error" })
             return;
         }
-        db.ref("/omoiros").push({
+        const key = db.ref("/omoiros").push({
             user_id: req.body.user_id,
             date: new Date().getTime(),
             text: req.body.text,
             image_urls: req.body.image_urls,
-            color: req.body.color
-        })
-        res.json({ ok: "ok" })
+            color: {
+                code: req.body.color.code,
+                name: req.body.color.name,
+                furigana: req.body.color.furigana
+            }
+        }).key
+        res.json({ id: key })
     }
 
-    private omoirosConvert(omoiros: any): Promise<any[]> {
-        return new Promise((resolve, reject) =>
-            db.ref(`/emo_pushs`).on("value", (snapshot) => {
-                if (snapshot) {
-                    const emo_pushs = objectToArray(snapshot.val());
-                    const newOmoiros = objectToArray(omoiros).map(omoiro => {
-                        omoiro.emo_counter = emo_pushs.filter(y => y.omoiro_id == omoiro.id).length
-                        return omoiro;
-                    })
-                    resolve(newOmoiros)
-                }
-            }));
+    private async omoirosConvert(omoiros: any): Promise<any[]> {
+        const emo_pushs = objectToArray((await db.ref(`/emo_pushs`).once("value")).val());
+        const newOmoiros = objectToArray(omoiros).map(omoiro => {
+            omoiro.emo_counter = emo_pushs.filter(y => y.omoiro_id == omoiro.id).length
+            return omoiro;
+        })
+        return newOmoiros
     }
 
 }
