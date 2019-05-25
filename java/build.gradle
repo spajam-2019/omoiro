@@ -9,6 +9,7 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    google()
 }
 
 dependencies {
@@ -16,4 +17,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     compile group: 'com.fasterxml.jackson.core',name:'jackson-databind',version: '2.8.8.1'
+    implementation "com.google.firebase:firebase-storage:16.1.0"
+    implementation 'com.google.firebase:firebase-core:16.0.8'
 }
