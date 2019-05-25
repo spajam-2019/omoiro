@@ -11,6 +11,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import { OmoiroList } from '../components/OmoiroList';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -30,6 +31,9 @@ export default class HomeScreen extends React.Component {
               }
               style={styles.welcomeImage}
             />
+          </View>
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <OmoiroList></OmoiroList>
           </View>
 
           <View style={styles.getStartedContainer}>
