@@ -13,8 +13,7 @@
                 "code": "#FFFFFF",
                 "name": "猫愛",
                 "furigana": "じつはいぬだいすき"
-            },
-            "emo_pushs": []
+            }
         },
         {
             "id": 1,
@@ -28,10 +27,7 @@
                 "code": "#FFFF00",
                 "name": "暗黒計算魔術",
                 "furigana": "こんぱいるじけいさん"
-            },
-            "emo_pushs": [
-                0
-            ]
+            }
         }
     ],
     "users": [
@@ -46,6 +42,12 @@
             "name": "Random",
             "email_address": "rrr@gmail.com",
             "password_hash": ""
+        }
+    ],
+    "emo_pushs": [
+        {
+            "user_id": 0,
+            "omoiro_id": 1
         }
     ]
 }
