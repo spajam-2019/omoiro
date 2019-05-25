@@ -15,7 +15,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.pulpunte.omoiroapp"
+        applicationId "com.example.pulpunte.android"
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
@@ -71,7 +71,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.14.1'
     compile group: 'com.fasterxml.jackson.core',name:'jackson-databind',version: '2.9.5'
 
-//    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation "com.google.firebase:firebase-storage:17.0.0"
 
 }
-//apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'com.google.gms.google-services'

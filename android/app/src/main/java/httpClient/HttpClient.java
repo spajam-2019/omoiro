@@ -2,7 +2,7 @@ package httpClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
-//import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class HttpClient{
     OkHttpClient okHttpClient;
@@ -11,7 +11,7 @@ public class HttpClient{
 
     public HttpClient(){
         okHttpClient = new OkHttpClient.Builder().build();
-//        FirebaseStorage storage = FirebaseStorage.getInstance("gs://omoiro.appspot.com/");
+        FirebaseStorage storage = FirebaseStorage.getInstance("gs://omoiro.appspot.com/");
     }
 
     public Omoiro[] GetOmoiros() throws Exception{
