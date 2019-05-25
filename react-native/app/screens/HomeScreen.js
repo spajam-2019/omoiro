@@ -22,6 +22,9 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+<<<<<<< HEAD
+        
+=======
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
@@ -68,6 +71,7 @@ export default class HomeScreen extends React.Component {
             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
           </View>
         </View>
+>>>>>>> 2b5c8a26ee651a50dde6bad64d7325996c776bb7
       </View>
     );
   }

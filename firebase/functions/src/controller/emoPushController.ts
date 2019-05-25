@@ -1,5 +1,6 @@
 import { Request, Response } from 'firebase-functions';
 import { db } from '../db';
+import { objectToArray } from '../objectToArray';
 
 export class EmoController {
     async insert(req: Request, res: Response) {
@@ -15,10 +16,10 @@ export class EmoController {
         res.json({ ok: "ok" })
     }
 
-    //user_idにひもづくemo_pushsを返す
+    //emo_pushsを返す
     emoPushs(req: Request, res: Response) {
         db.ref("/emo_pushs").on("value", (snapshot) => {
-            if (snapshot) res.json(snapshot.val());
+            if (snapshot) res.json(objectToArray(snapshot.val()));
         });
     }
 
@@ -26,7 +27,7 @@ export class EmoController {
         return new Promise((resolve, reject) =>
             db.ref("/emo_pushs").on("value", (snapshot) => {
                 if (snapshot) {
-                    const flag = (snapshot.val() as { user_id: number, omoiro_id: number }[])
+                    const flag = objectToArray(snapshot.val())
                         .some(x => x.omoiro_id == omoiro_id && x.user_id == user_id);
                     resolve(flag);
                 }
