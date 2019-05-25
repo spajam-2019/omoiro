@@ -2,17 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-            app:startDestination="@id/oneFragment">
-
-
-    <fragment android:id="@+id/oneFragment" android:name="com.example.pulpunte.android.OneFragment"
-              android:label="fragment_one" tools:layout="@layout/fragment_one">
-        <action android:id="@+id/action_oneFragment_to_secondFragment" app:destination="@id/secondFragment">
-            <argument android:name="date" app:argType="java.time.LocalDate"/>
-        </action>
+            app:startDestination="@id/topFragment">
+    <fragment android:id="@+id/topFragment" android:name="com.example.pulpunte.android.TopFragment"
+              android:label="fragment_top" tools:layout="@layout/fragment_top">
+        <action android:id="@+id/action_topFragment_to_memoryFragment" app:destination="@id/memoryFragment"/>
     </fragment>
-    <fragment android:id="@+id/secondFragment" android:name="com.example.pulpunte.android.SecondFragment"
-              android:label="fragment_second" tools:layout="@layout/fragment_second">
-        <argument android:name="date" app:argType="java.time.LocalDate"/>
+    <fragment android:id="@+id/memoryFragment" android:name="com.example.pulpunte.android.MemoryFragment"
+              android:label="fragment_memory" tools:layout="@layout/fragment_memory">
+        <action android:id="@+id/action_memoryFragment_to_colorNamingFragment"
+                app:destination="@id/colorNamingFragment"/>
     </fragment>
+    <fragment android:id="@+id/colorNamingFragment" android:name="com.example.pulpunte.android.ColorNamingFragment"
+              android:label="fragment_color_naming" tools:layout="@layout/fragment_color_naming">
+        <action android:id="@+id/action_colorNamingFragment_to_colorPickFragment"
+                app:destination="@id/colorPickFragment"/>
+    </fragment>
+    <fragment android:id="@+id/colorPickFragment" android:name="com.example.pulpunte.android.ColorPickFragment"
+              android:label="fragment_color_pick" tools:layout="@layout/fragment_color_pick"/>
 </navigation>

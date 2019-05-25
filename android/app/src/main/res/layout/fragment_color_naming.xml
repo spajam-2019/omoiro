@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.example.pulpunte.android.ColorNamingFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="名前(最大５文字)"
+                android:ems="10"
+                android:id="@+id/inputName" tools:layout_editor_absoluteX="0dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/inputKana"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="フリガナ"
+                android:ems="10"
+                android:id="@+id/inputKana"/>
+        <Button
+                android:text="リセットする"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/nameReset"
+                app:layout_constraintStart_toEndOf="@+id/inputName" android:layout_marginStart="8dp"
+                tools:layout_editor_absoluteY="50dp"/>
+        <Button
+                android:text="次へ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/next"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/hintWords"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:flexWrap="wrap"
+                app:alignItems="stretch"
+                app:alignContent="stretch" app:layout_constraintTop_toBottomOf="@+id/inputName"
+                android:layout_marginTop="100dp" tools:layout_editor_absoluteX="0dp">
+        </com.google.android.flexbox.FlexboxLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
