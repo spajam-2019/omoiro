@@ -12,6 +12,7 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import { OmoiroList } from '../components/OmoiroList';
+import { OmoiroCreateForm } from '../components/OmoiroCreateForm';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -34,6 +35,9 @@ export default class HomeScreen extends React.Component {
           </View>
           <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
             <OmoiroList></OmoiroList>
+          </View>
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <OmoiroCreateForm></OmoiroCreateForm>
           </View>
 
           <View style={styles.getStartedContainer}>
