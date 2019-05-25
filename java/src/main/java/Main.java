@@ -16,6 +16,6 @@ public class Main {
       ReqEmoPush reqEmoPush= new ReqEmoPush();
       reqEmoPush.user_id=1;
       reqEmoPush.omoiro_id="0";
-        System.out.println(h.AddEmoPush(reqEmoPush));
+      System.out.println(h.AddEmoPush(reqEmoPush));
     }
 }
