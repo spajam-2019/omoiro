@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+ <meta charset="utf-8">
+ <title>firebase Cloud Storage uploader</title>
+ </head>
+<body>
+<h1>
+　　　　　<a href="index.html">firebase Cloud Storage uploader</a>
+</h1>
+<div>
+<!-- autocomplete="off"でformの候補をなくす -->
+　　　　　<form autocomplete="off">
+   　　　　　<input type="file" id="setfile">
+   　　　　　<input type="submit" value="storageへ">
+   </form>
+   <div id="imgSample" style="width: 200px; height: 200px; background-size:100% auto; background-position : 50% 50%;"></div>
+</div>
+
+ <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-storage.js"></script>
+ <script src="js/index.js"></script>
+</body>
+</html>
