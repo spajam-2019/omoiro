@@ -15,7 +15,23 @@ export default class HttpClient {
 
   async getOmoiros() {
     try {
-      const res = await this.axios.get('omoiros/show')
+      const res = await this.axios.get('omoiros/')
+
+      return res.data
+    } catch (e) {
+      return { error: 503 }
+    }
+  }
+
+  async postOmoiro() {
+    try {
+      const res = await this.axios.post('omoiros/create', {
+        user_id: 1,
+        date: new Date().getTime(),
+        text: 'ねこねこ',
+        image_urls: 'http://abe.org',
+        color: '#222222'
+      })
 
       return res.data
     } catch (e) {
