@@ -18,7 +18,7 @@ router.get('/show', (req, res) => {
                 "name": "猫愛",
                 "furigana": "じつはいぬだいすき"
             },
-            "emmo_push_count": 1
+            "emo_push_count": 1
         },
         {
             "id": 1,
@@ -33,7 +33,7 @@ router.get('/show', (req, res) => {
                 "name": "暗黒計算魔術",
                 "furigana": "こんぱいるじけいさん"
             },
-            "emmo_push_count": 0
+            "emo_push_count": 0
         }
     ]);
 });
