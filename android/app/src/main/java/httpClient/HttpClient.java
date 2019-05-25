@@ -1,8 +1,22 @@
 package httpClient;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.arch.core.util.Function;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import okhttp3.*;
 import com.google.firebase.storage.FirebaseStorage;
+import org.jetbrains.annotations.NonNls;
+
+import java.io.ByteArrayOutputStream;
+import java.net.URI;
+import java.util.function.Consumer;
 
 public class HttpClient{
     OkHttpClient okHttpClient;
@@ -11,7 +25,41 @@ public class HttpClient{
 
     public HttpClient(){
         okHttpClient = new OkHttpClient.Builder().build();
+    }
+
+    public void UploadFile(String fileName, byte[] bytes, Consumer<Uri> f){
         FirebaseStorage storage = FirebaseStorage.getInstance("gs://omoiro.appspot.com/");
+
+
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+
+        // Create a reference to 'images/mountains.jpg'
+        StorageReference mountainsRef = storageRef.child("images/"+fileName);
+
+        // Get the data from an ImageView as bytes
+
+        UploadTask uploadTask = mountainsRef.putBytes(bytes);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e("UPLOAD ERROR", exception.toString());
+            }
+        }).addOnSuccessListener(new SuccessListener(f));
+    }
+
+    class SuccessListener implements OnSuccessListener<UploadTask.TaskSnapshot>{
+
+        Consumer<Uri> f;
+        public SuccessListener(Consumer<Uri> f){
+            this.f=f;
+        }
+
+        @Override
+        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            f.accept(taskSnapshot.getStorage().getDownloadUrl().getResult());
+        }
+
     }
 
     public Omoiro[] GetOmoiros() throws Exception{
