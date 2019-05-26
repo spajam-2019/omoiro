@@ -65,7 +65,7 @@ class ConfirmationFragment : Fragment() {
                 val byteArray = byteBuffer.array()
                 httpClient.UploadFile("bmp",byteArray,{
                         url->
-                            urls.add(url)
+                            urls.add("https://firebasestorage.googleapis.com/v0/b/omoiro.appspot.com/o/images%2F28004000763.jpg?alt=media&token=08c0b9f4-4b2b-4c3e-9070-17bee44ebcce")
                             latch.countDown()
                 })
 
