@@ -7,4 +7,10 @@ export class UserController {
             if (snapshot) res.json(snapshot.val())
         })
     }
+
+    user(req: Request, res: Response) {
+        db.ref(`/users/${req.params.id}`).on("value", (snapshot) => {
+            if (snapshot) res.json(snapshot.val())
+        })
+    }
 }
