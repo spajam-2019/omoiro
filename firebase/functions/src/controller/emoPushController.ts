@@ -5,7 +5,7 @@ import { objectToArray } from '../objectToArray';
 export class EmoController {
     async insert(req: Request, res: Response) {
         if (!(req.body.user_id && req.body.omoiro_id)) {
-            res.sendStatus(400);
+            res.sendStatus(400).send("validation");
             return;
         }
         if (await this.deleteEmoPushs(req.body.user_id, req.body.omoiro_id)) {
