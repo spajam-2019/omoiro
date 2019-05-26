@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
 import com.example.pulpunte.android.R
@@ -51,9 +52,10 @@ class ColorPickFragment() : Fragment() {
         }
 
         next.setOnClickListener {
-            val action = ColorNamingFragmentDirections.actionColorNamingFragmentToColorPickFragment(params.params.copy(
+            val action = ColorPickFragmentDirections.actionColorPickFragmentToConfirmationFragment(params.params.copy(
                 color = selectColor
             ))
+            findNavController().navigate(action)
         }
     }
 }
