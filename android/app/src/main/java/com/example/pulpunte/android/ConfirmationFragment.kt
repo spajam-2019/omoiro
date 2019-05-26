@@ -87,7 +87,7 @@ class ConfirmationFragment : Fragment() {
                 date = params.params.date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"))
                 user_id = 1
             }
-            httpClient.CreateOmoiro(req);
+            httpClient.CreateOmoiro(req,{id->});
         }
     }
 }

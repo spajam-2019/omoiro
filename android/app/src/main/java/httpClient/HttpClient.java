@@ -14,6 +14,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.function.Consumer;
 import java.util.UUID;
@@ -62,7 +63,7 @@ public class HttpClient {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
 
-                    f.accept("https://firebasestorage.googleapis.com"+downloadUri.getEncodedPath()+"?alt=media");
+                    f.accept("https://firebasestorage.googleapis.com" + downloadUri.getEncodedPath() + "?alt=media");
                 }
             }
         });
@@ -89,26 +90,27 @@ public class HttpClient {
         throw new Exception("omoiros error");
     }
 
-    public String CreateOmoiro(ReqOmoiro req) throws Exception {
+    public void CreateOmoiro(ReqOmoiro req, Consumer<String> f) throws Exception {
         Request request = new Request.Builder()
                 .url(baseUrl + "omoiros/create")
                 .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), mapper.writeValueAsString(req)))
                 .build();
 
-        try (Response response = okHttpClient.newCall(request).execute()) {
-            int responseCode = response.code();
-            System.out.println("responseCode: " + responseCode);
+        okHttpClient.newCall(request)
+                .enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
 
-            if (!response.isSuccessful()) {
-                System.out.println("error!!");
-            }
-            if (response.body() != null) {
-                String body = response.body().string();
+                    }
 
-                return mapper.readValue(body, ResId.class).id;
-            }
-        }
-        throw new Exception("omoiros error");
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.body() != null) {
+                            String body = response.body().string();
+                            f.accept(mapper.readValue(body, ResId.class).id);
+                        }
+                    }
+                });
     }
 
     public String AddEmoPush(ReqEmoPush req) throws Exception {
