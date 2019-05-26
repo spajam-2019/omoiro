@@ -14,4 +14,5 @@ router.get('/:id', (req, res) => {
     userController.user(req, res);
 });
 
+
 export default router;
