@@ -2,6 +2,7 @@ package com.example.pulpunte.android
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,13 +67,13 @@ class ConfirmationFragment : Fragment() {
                 httpClient.UploadFile("bmp",byteArray,{
                         url->
                             urls.add("https://firebasestorage.googleapis.com/v0/b/omoiro.appspot.com/o/images%2F28004000763.jpg?alt=media&token=08c0b9f4-4b2b-4c3e-9070-17bee44ebcce")
-                            latch.countDown()
                 })
+                latch.countDown()
 
             }
 
             latch.await()
-
+            Log.i("bb","bb")
             val req = ReqOmoiro().apply{
                 val array = arrayOfNulls<String>(urls.size)
                 urls.toArray(array)
@@ -83,9 +84,10 @@ class ConfirmationFragment : Fragment() {
                     name = params.params.name
                 }
                 text = params.params.text
-                date = params.params.date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss"))
+                date = params.params.date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"))
                 user_id = 1
             }
+            httpClient.CreateOmoiro(req);
         }
     }
 }

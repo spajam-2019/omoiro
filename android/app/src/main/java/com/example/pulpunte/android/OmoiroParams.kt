@@ -5,9 +5,10 @@ import androidx.navigation.NavArgs
 import androidx.palette.graphics.Palette
 import java.io.Serializable
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class OmoiroParams(
-    var date: LocalDate = LocalDate.now(),
+    var date: LocalDateTime = LocalDateTime.now(),
     var images: List<Bitmap> = listOf(),
     var text: String = "",
     var kana: String = "",
