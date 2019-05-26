@@ -8,6 +8,12 @@ export class OmoiroController {
         })
     }
 
+    omoiro(req: Request, res: Response) {
+        db.ref(`/omoiros/${req.params.id}`).on("value", (snapshot) => {
+            if (snapshot) res.json(snapshot.val())
+        })
+    }
+
     create(req: Request, res: Response) {
         if (!(req.body.user_id && req.body.text && req.body.image_urls && req.body.color)) {
             res.json({ error: "validate error" })
