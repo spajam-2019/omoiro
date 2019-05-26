@@ -20,6 +20,10 @@ import kotlinx.coroutines.*
 import java.nio.ByteBuffer
 import java.util.concurrent.CountDownLatch
 import kotlin.collections.ArrayList
+import com.google.android.gms.common.util.IOUtils.toByteArray
+import android.graphics.Bitmap
+import android.R.attr.bitmap
+import java.io.ByteArrayOutputStream
 
 
 /**
@@ -61,10 +65,10 @@ class ConfirmationFragment : Fragment() {
             val httpClient= HttpClient()
 
             params.params.images.forEach {
-                val byteBuffer = ByteBuffer.allocate(it.byteCount)
-                it.copyPixelsToBuffer(byteBuffer)
-                val byteArray = byteBuffer.array()
-                httpClient.UploadFile("bmp",byteArray,{
+                val baos = ByteArrayOutputStream()
+                it.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                httpClient.UploadFile("jpeg",data,{
                         url->
                             urls.add("https://firebasestorage.googleapis.com/v0/b/omoiro.appspot.com/o/images%2F28004000763.jpg?alt=media&token=08c0b9f4-4b2b-4c3e-9070-17bee44ebcce")
                 })
@@ -73,7 +77,7 @@ class ConfirmationFragment : Fragment() {
             }
 
             latch.await()
-            Log.i("bb","bb")
+            Log.i("bb",urls.count().toString())
             val req = ReqOmoiro().apply{
                 val array = arrayOfNulls<String>(urls.size)
                 urls.toArray(array)
