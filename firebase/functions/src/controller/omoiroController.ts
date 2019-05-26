@@ -18,7 +18,11 @@ export class OmoiroController {
     }
 
     create(req: Request, res: Response) {
-        if (!(req.body.user_id && req.body.text && req.body.image_urls && req.body.color)) {
+        if (!(
+            req.body.user_id && req.body.text &&
+            req.body.image_urls && req.body.color &&
+            req.body.color.code && req.body.color.name && req.body.color.furigana
+        )) {
             res.json({ error: "validate error" })
             return;
         }
@@ -27,7 +31,11 @@ export class OmoiroController {
             date: new Date().getTime(),
             text: req.body.text,
             image_urls: req.body.image_urls,
-            color: req.body.color
+            color: {
+                code: req.body.color.code,
+                name: req.body.color.name,
+                furigana: req.body.color.furigana
+            }
         }).key
         res.json({ id: key })
     }
