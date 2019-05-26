@@ -4,7 +4,7 @@ import { db } from '../db';
 export class EmoController {
     insert(req: Request, res: Response) {
         db.ref("/emo_pushs").push({ "user_id": req.body.user_id, "omoiro_id": req.body.omoiro_id });
-        res.send("");
+        res.json({ ok: "ok" })
     }
 
     //user_idにひもづくemo_pushsを返す
