@@ -11,10 +11,10 @@ import androidx.navigation.fragment.navArgs
 
 
 import httpClient.Color
+import httpClient.HttpClient
 import httpClient.ReqOmoiro
 import kotlinx.android.synthetic.main.fragment_confirmation.*
 import java.time.format.DateTimeFormatter
-import android.net.Uri
 import kotlinx.coroutines.*
 import java.nio.ByteBuffer
 import java.util.concurrent.CountDownLatch
@@ -56,12 +56,18 @@ class ConfirmationFragment : Fragment() {
 
         post.setOnClickListener {
             val latch = CountDownLatch(params.params.images.size)
-            val urls = ArrayList<Uri>()
+            val urls = ArrayList<String>()
+            val httpClient= HttpClient()
 
             params.params.images.forEach {
                 val byteBuffer = ByteBuffer.allocate(it.byteCount)
                 it.copyPixelsToBuffer(byteBuffer)
                 val byteArray = byteBuffer.array()
+                httpClient.UploadFile("bmp",byteArray,{
+                        url->
+                            urls.add("https://firebasestorage.googleapis.com/v0/b/omoiro.appspot.com/o/images%2F28004000763.jpg?alt=media&token=08c0b9f4-4b2b-4c3e-9070-17bee44ebcce")
+                            latch.countDown()
+                })
 
             }
 
