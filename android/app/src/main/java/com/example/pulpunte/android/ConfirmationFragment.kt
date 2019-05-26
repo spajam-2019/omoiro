@@ -25,6 +25,10 @@ import kotlinx.coroutines.*
 import java.nio.ByteBuffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import android.R.attr.bitmap
+import android.R
+import java.util.concurrent.CountDownLatch
+import kotlin.collections.ArrayList
 
 
 /**
@@ -61,7 +65,22 @@ class ConfirmationFragment : Fragment() {
 
 
         post.setOnClickListener {
+            val latch = CountDownLatch(params.params.images.size)
+            val urls = ArrayList<Uri>()
+
+            params.params.images.forEach {
+                val byteBuffer = ByteBuffer.allocate(it.byteCount)
+                it.copyPixelsToBuffer(byteBuffer)
+                val byteArray = byteBuffer.array()
+
+            }
+
+            latch.await()
+
             val req = ReqOmoiro().apply{
+                val array = arrayOfNulls<String>(urls.size)
+                urls.toArray(array)
+                image_urls = array
                 color = Color().apply {
                     code = params.params.color.toString()
                     furigana = params.params.kana
