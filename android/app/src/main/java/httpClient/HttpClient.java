@@ -62,7 +62,7 @@ public class HttpClient {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
 
-                    f.accept("https://firebasestorage.googleapis.com"+downloadUri.getPath());
+                    f.accept("https://firebasestorage.googleapis.com"+downloadUri.getEncodedPath()+"?alt=media");
                 }
             }
         });
