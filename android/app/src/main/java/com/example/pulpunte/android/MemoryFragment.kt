@@ -11,11 +11,12 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import android.content.Intent
 import android.graphics.Bitmap
-import android.media.Image
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.esafirm.imagepicker.features.ImagePicker
 import android.graphics.BitmapFactory
+import android.widget.ImageView
+import androidx.navigation.fragment.findNavController
+import com.esafirm.imagepicker.model.Image
 
 
 /**
@@ -30,6 +31,7 @@ import android.graphics.BitmapFactory
 class MemoryFragment : Fragment() {
     private val RESULT_PICK_FILENAME: Int = 1
     var date: LocalDate = LocalDate.now()
+    var imageList: List<Bitmap> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,7 @@ class MemoryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        datePicker.setText(date.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日")), TextView.BufferType.NORMAL)
 
         datePicker.setOnFocusChangeListener { _, focus ->
             if(focus.not()) return@setOnFocusChangeListener
@@ -57,7 +60,7 @@ class MemoryFragment : Fragment() {
                 datePicker.setText(date.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日")), TextView.BufferType.NORMAL)
 
                 datePicker.clearFocus()
-            }, date.year, date.monthValue, date.dayOfMonth).show()
+            }, date.year, date.monthValue + 1, date.dayOfMonth).show()
         }
 
         addImage.setOnClickListener {
@@ -65,21 +68,34 @@ class MemoryFragment : Fragment() {
         }
 
         next.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_memoryFragment_to_colorNamingFragment)
+            val action = MemoryFragmentDirections.actionMemoryFragmentToColorNamingFragment(
+                OmoiroParams().apply {
+                    date = date
+                    text = editText.editableText.toString()
+                    images = imageList
+                }
+            )
+            this.findNavController().navigate(action)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-            val images = ImagePicker.getImages(data)
+            imageList = ImagePicker.getImages(data).map { it.toBitMap() }.toMutableList()
+            imageList.forEach {
+                imageViews.addView(ImageView(context).apply {
+                    layoutParams = ViewGroup.LayoutParams(400, 400)
+                    setImageBitmap(it)
+                })
+            }
+
         }
     }
 
-    fun Image.toBitMap(): Bitmap {
-        val buffer = planes[0].buffer
-        val bytes = ByteArray(buffer.capacity())
-        buffer.get(bytes)
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, null)
+    private fun Image.toBitMap(): Bitmap {
+        val options = BitmapFactory.Options()
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888
+        return BitmapFactory.decodeFile(path, options)
     }
 }

@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 
 import com.example.pulpunte.android.R
+import com.jaredrummler.android.colorpicker.ColorPanelView
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.fragment_color_pick.*
@@ -17,7 +19,10 @@ import kotlinx.android.synthetic.main.fragment_color_pick.*
  * A simple [Fragment] subclass.
  *
  */
-class ColorPickFragment : Fragment(), ColorPickerDialogListener {
+class ColorPickFragment() : Fragment() {
+    val params: ColorPickFragmentArgs by navArgs()
+
+    var selectColor = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,18 +34,26 @@ class ColorPickFragment : Fragment(), ColorPickerDialogListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        colorPick.setOnClickListener {
-            ColorPickerDialog.newBuilder()
-                .setDialogType(ColorPickerDialog.TYPE_CUSTOM)
-                .show(activity)
+        params.params.hintColor().shuffled().take(4).forEach { c ->
+            hintColors.addView(ColorPanelView(context).apply {
+                color = c
+                layoutParams = ViewGroup.LayoutParams(400, 400)
+                setOnClickListener {
+                    colorPicker.color = c
+                    selectColor = color
+                }
+            })
         }
-    }
 
-    override fun onDialogDismissed(dialogId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        colorPicker.setOnColorChangedListener { color ->
+            selectColor = color
+            selectColorPanel.color = selectColor
+        }
 
-    override fun onColorSelected(dialogId: Int, color: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        next.setOnClickListener {
+            val action = ColorNamingFragmentDirections.actionColorNamingFragmentToColorPickFragment(params.params.copy(
+                color = selectColor
+            ))
+        }
     }
 }

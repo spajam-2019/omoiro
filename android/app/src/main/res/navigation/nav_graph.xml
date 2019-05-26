@@ -10,13 +10,35 @@
     <fragment android:id="@+id/memoryFragment" android:name="com.example.pulpunte.android.MemoryFragment"
               android:label="fragment_memory" tools:layout="@layout/fragment_memory">
         <action android:id="@+id/action_memoryFragment_to_colorNamingFragment"
-                app:destination="@id/colorNamingFragment"/>
+                app:destination="@id/colorNamingFragment">
+            <argument
+                    android:name="params"
+                    app:argType="com.example.pulpunte.android.OmoiroParams"/>
+        </action>
     </fragment>
     <fragment android:id="@+id/colorNamingFragment" android:name="com.example.pulpunte.android.ColorNamingFragment"
               android:label="fragment_color_naming" tools:layout="@layout/fragment_color_naming">
+        <argument
+                android:name="params"
+                app:argType="com.example.pulpunte.android.OmoiroParams"/>
         <action android:id="@+id/action_colorNamingFragment_to_colorPickFragment"
-                app:destination="@id/colorPickFragment"/>
+                app:destination="@id/colorPickFragment">
+            <argument
+                    android:name="params"
+                    app:argType="com.example.pulpunte.android.OmoiroParams"/>
+        </action>
+
     </fragment>
     <fragment android:id="@+id/colorPickFragment" android:name="com.example.pulpunte.android.ColorPickFragment"
-              android:label="fragment_color_pick" tools:layout="@layout/fragment_color_pick"/>
+              android:label="fragment_color_pick" tools:layout="@layout/fragment_color_pick">
+        <argument
+                android:name="params"
+                app:argType="com.example.pulpunte.android.OmoiroParams"/>
+        <action android:id="@+id/action_colorPickFragment_to_confirmationFragment"
+                app:destination="@id/confirmationFragment"/>
+    </fragment>
+    <fragment android:id="@+id/confirmationFragment" android:name="com.example.pulpunte.android.ConfirmationFragment"
+              android:label="fragment_confirmation" tools:layout="@layout/fragment_confirmation">
+        <argument android:name="params" app:argType="com.example.pulpunte.android.OmoiroParams"/>
+    </fragment>
 </navigation>

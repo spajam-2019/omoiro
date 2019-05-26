@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
-import com.example.pulpunte.android.R
 import kotlinx.android.synthetic.main.fragment_color_naming.*
 
 /**
@@ -17,7 +18,12 @@ import kotlinx.android.synthetic.main.fragment_color_naming.*
  *
  */
 class ColorNamingFragment : Fragment() {
-    val hintCharList: List<String> = listOf("本", "文", "入", "本", "文", "入", "本", "文", "入")
+    val params: ColorNamingFragmentArgs by navArgs()
+//    val hintWardList: List<String> = listOf()//params.params.hintWardList()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +36,7 @@ class ColorNamingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        hintCharList.forEach { word ->
+        params.params.hintWardList().forEach { word ->
             hintWords.addView(Button(context).apply {
                 text = word
                 setOnClickListener {
@@ -44,8 +50,17 @@ class ColorNamingFragment : Fragment() {
         }
 
         next.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_colorNamingFragment_to_colorPickFragment)
+            val action = ColorNamingFragmentDirections.actionColorNamingFragmentToColorPickFragment(params.params.copy(
+                kana = inputKana.editableText.toString(),
+                name = inputName.editableText.toString()
+            ))
+            findNavController().navigate(action)
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = ColorNamingFragment()
     }
 
 }
