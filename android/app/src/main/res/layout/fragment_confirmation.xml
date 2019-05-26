@@ -23,7 +23,7 @@
                         android:layout_height="wrap_content" android:id="@+id/name"
                         app:layout_constraintTop_toBottomOf="@+id/kana"/>
                 <com.jaredrummler.android.colorpicker.ColorPanelView
-                        android:id="@+id/selectColorPanel"
+                        android:id="@+id/colorPanel"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_weight="0.5"

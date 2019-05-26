@@ -9,24 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.fragment.navArgs
 
-import com.example.pulpunte.android.R
+
 import httpClient.Color
-import httpClient.HttpClient
 import httpClient.ReqOmoiro
 import kotlinx.android.synthetic.main.fragment_confirmation.*
 import java.time.format.DateTimeFormatter
-import java.util.*
-import android.R.array
-import android.R.attr.bitmap
-import android.R
-import android.graphics.Bitmap
 import android.net.Uri
 import kotlinx.coroutines.*
 import java.nio.ByteBuffer
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
-import android.R.attr.bitmap
-import android.R
 import java.util.concurrent.CountDownLatch
 import kotlin.collections.ArrayList
 

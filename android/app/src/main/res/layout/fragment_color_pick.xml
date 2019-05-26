@@ -45,7 +45,7 @@
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"/>
         <com.jaredrummler.android.colorpicker.ColorPanelView
-                android:id="@+id/selectColorPanel"
+                android:id="@+id/colorPanel"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="0.5"
