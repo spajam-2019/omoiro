@@ -21,14 +21,15 @@ export class OmoiroController {
         if (!(
             req.body.user_id && req.body.text &&
             req.body.image_urls && req.body.color &&
-            req.body.color.code && req.body.color.name && req.body.color.furigana
+            req.body.color.code && req.body.color.name && req.body.color.furigana &&
+            req.body.date
         )) {
             res.json({ error: "validate error" })
             return;
         }
         const key = db.ref("/omoiros").push({
             user_id: req.body.user_id,
-            date: new Date().getTime(),
+            date: req.body.date,
             text: req.body.text,
             image_urls: req.body.image_urls,
             color: {
