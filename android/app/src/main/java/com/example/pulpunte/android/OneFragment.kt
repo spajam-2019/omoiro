@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_one.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import ru.gildor.coroutines.okhttp.await
@@ -37,11 +38,11 @@ class OneFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         GlobalScope.launch {
-            with(Dispatchers.IO) {
-                val response = OkHttpClient().newCall(Request.Builder().url("https://79fecbbd.ngrok.io/json").build()).await()
-                val testModel = response.get<TestModel>()
-                Log.d("testModel", testModel.toString())
-            }
+//            withContext(Dispatchers.IO) {
+//                val response = OkHttpClient().newCall(Request.Builder().url("https://79fecbbd.ngrok.io/json").build()).await()
+//                val testModel = response.get<TestModel>()
+//                Log.d("testModel", testModel.toString())
+//            }
         }
 
 
