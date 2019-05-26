@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.fragment.navArgs
 
-import com.example.pulpunte.android.R
+
 import httpClient.Color
 import httpClient.HttpClient
 import httpClient.ReqOmoiro
@@ -58,7 +58,7 @@ class ConfirmationFragment : Fragment() {
         post.setOnClickListener {
             val latch = CountDownLatch(params.params.images.size)
             val urls = ArrayList<String>()
-            val httpClient=HttpClient()
+            val httpClient= HttpClient()
 
             params.params.images.forEach {
                 val byteBuffer = ByteBuffer.allocate(it.byteCount)

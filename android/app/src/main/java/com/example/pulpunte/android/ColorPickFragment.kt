@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
-import com.example.pulpunte.android.R
 import com.jaredrummler.android.colorpicker.ColorPanelView
-import com.jaredrummler.android.colorpicker.ColorPickerDialog
-import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.fragment_color_pick.*
 
 
@@ -48,7 +45,7 @@ class ColorPickFragment() : Fragment() {
 
         colorPicker.setOnColorChangedListener { color ->
             selectColor = color
-            selectColorPanel.color = selectColor
+            colorPanel.color = selectColor
         }
 
         next.setOnClickListener {
